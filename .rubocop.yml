@@ -1,0 +1,30 @@
+AllCops:
+  Exclude:
+    - "vendor/**/*" # rubocop config/default.yml
+    - "db/schema.rb"
+    - "node_modules/**/*"
+  DisplayCopNames: true
+
+Layuot:
+  Enabled: true
+
+Style:
+  Enabled: false
+
+Lint:
+  Enabled: false
+
+Metrics:
+  Enabled: false
+
+Performance:
+  Enabled: false
+
+Rails:
+  Enabled: false
+
+Security:
+  Enabled: false
+
+Bundler:
+  Enabled: false

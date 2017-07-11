@@ -1,0 +1,36 @@
+box: ruby:2.4.1
+
+build:
+  steps:
+    - install-packages:
+        packages: nodejs
+
+    - script:
+      name: Gem Nokogiri install
+      code: bundle config build.nokogiri --use-system-libraries
+
+    - bundle-install
+
+    - script:
+      name: echo ruby information
+      code: |
+          echo "ruby version $(ruby --version) running"
+          echo "from location $(which ruby)"
+          echo -p "gem list: $(gem list)"
+
+    - script:
+        name: Set up db
+        code: RAILS_ENV=test bundle exec rails db:schema:load
+
+    - script:
+        name: rubocop
+        code: bundle exec rubocop
+
+    - script:
+        name: test
+        code: bundle exec rails test
+
+  after-steps:
+    - wantedly/pretty-slack-notify:
+        webhook_url: $SLACK_WEBHOOK_URL
+        channel: newbie
