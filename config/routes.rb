@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
-  get 'accounts/new'
+  root 'homes#home'
+
+  get '/signup', to: 'accounts#new'
+  post '/signup', to: 'accounts#create'
 
 end
