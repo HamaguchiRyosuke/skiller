@@ -27,8 +27,8 @@ build:
         code: bundle exec rubocop
 
     - script:
-        name: test
-        code: bundle exec rails test
+        name: RSpec
+        code: bundle exec rspec
 
   after-steps:
     - wantedly/pretty-slack-notify:
