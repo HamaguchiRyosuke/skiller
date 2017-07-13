@@ -7,6 +7,7 @@ class AccountsController < ApplicationController
   def create
     @account = Account.new(account_params)
     if @account.save
+      log_in @account
       flash[:success] = "Welcome to the skiller!"
       redirect_to root_url
     else
@@ -23,6 +24,6 @@ class AccountsController < ApplicationController
 
   private
   def account_params
-    params.require(:account).permit(:email)
+    params.require(:account).permit(:email, :password, :password_confirmation)
   end
 end

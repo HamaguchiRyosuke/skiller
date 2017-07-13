@@ -36,6 +36,13 @@ RSpec.configure do |config|
   # examples within a transaction, remove the following line or assign false
   # instead of true.
   config.use_transactional_fixtures = true
+  module UserHelper
+    module RequestSpec
+      def is_logged_in?
+        !session[:user_id].nil?
+      end
+    end
+  end
 
   # RSpec Rails can automatically mix in different behaviours to your tests
   # based on their file location, for example enabling you to call `get` and
