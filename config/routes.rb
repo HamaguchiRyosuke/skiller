@@ -3,5 +3,5 @@ Rails.application.routes.draw do
 
   get '/signup', to: 'accounts#new'
   post '/signup', to: 'accounts#create'
-
+  resources :accounts, only:[:index, :destroy]
 end
