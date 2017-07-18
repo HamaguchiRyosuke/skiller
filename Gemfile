@@ -49,8 +49,8 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'factory_girl_rails', require: false
   gem 'shoulda-matchers', '~> 2.6.0'
-  gem 'email_spec'
   gem 'active_decorator'
+  gem 'email_spec'
 end
 
 group :development do

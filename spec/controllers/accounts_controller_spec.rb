@@ -12,9 +12,31 @@ RSpec.describe AccountsController, type: :controller do
   end
 
   describe 'POST #create' do
-    before { post :create, params: { account: { email: account.email } } }
+    let!(:account_email) { account.email }
+    let!(:account_pass) { account.password }
+    before { post :create, params: { account: { email: account_email, password: account_pass } } }
+
     context 'when email blank' do
       let!(:account_email) { " " }
+      it { expect(flash).to_not be_nil }
+      it { is_expected.to render_template :new }
+    end
+
+    context 'when email is strange' do
+      let!(:account_email) { "aaa@aaa" }
+      it { expect(flash).to_not be_nil }
+      it { is_expected.to render_template :new }
+    end
+
+    context 'when password blank' do
+      let!(:account_pass) { " " }
+      it { expect(flash).to_not be_nil }
+      it { is_expected.to render_template :new }
+    end
+
+    context 'when password is too short' do
+      let!(:account_pass) { "a" * 5 }
+      it { expect(flash).to_not be_nil }
       it { is_expected.to render_template :new }
     end
   end

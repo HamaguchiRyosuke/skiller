@@ -23,11 +23,6 @@ class Account < ApplicationRecord
     end
   end
 
-  # 有効化用のメールを送信する
-  def send_activation_email
-    AccountMailer.account_activation(self).deliver_now
-  end
-
   # アカウントを有効にする
   def activate
     update_columns(activated: true, activated_at: Time.zone.now)
