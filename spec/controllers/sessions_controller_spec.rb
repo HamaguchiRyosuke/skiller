@@ -33,6 +33,17 @@ RSpec.describe SessionsController, type: :controller do
       it { is_expected.to render_template 'new' }
       it { expect(session[:account_id]).to be_nil }
     end
+
+    context 'when login by not activated account' do
+      let!(:account) { create(:account, activated: false) }
+      before do
+        post :create, params: { session: { email:login_email, password: login_pass } }
+      end
+
+      it { expect(flash).to_not be_empty }
+      it { is_expected.to redirect_to root_url }
+      it { expect(session[:user_id]).to be_nil }
+    end
   end
 
   describe "DELETE #destroy" do
