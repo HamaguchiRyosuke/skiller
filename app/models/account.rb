@@ -33,6 +33,10 @@ class Account < ApplicationRecord
     update_columns(activated: true, activated_at: Time.zone.now)
   end
 
+  def deactivated
+    
+  end
+
   # トークンがダイジェストと一致したらtrueを返す
   def authenticated?(attribute, token)
     digest = send("#{attribute}_digest")
