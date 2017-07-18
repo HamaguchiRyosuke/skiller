@@ -1,32 +1,30 @@
-require "rails_helper"
-
-describe AccountMailer, type: :mailer do
-  describe "account_activation" do
-    let(:mail) { AccountMailer.account_activation }
-    # 
-    # context 'renders the header' do
-    #     it { expect(mail.subject).to match "Account activation" }
-    #     it { expect(mail.to).to match account.email }
-    #     it { expect(mail.from).to eq "noreply@example.com" }
-    # end
-    #
-    # context 'renders the body' do
-    #   it { expect(mail.body.encoded).to ("Hi") }
-    # end
-  end
-
-  # describe "password_reset" do
-  #   let(:mail) { AccountMailer.password_reset }
-  #
-  #   it "renders the headers" do
-  #     expect(mail.subject).to eq("Password reset")
-  #     expect(mail.to).to eq(["to@example.org"])
-  #     expect(mail.from).to eq(["from@example.com"])
-  #   end
-  #
-  #   it "renders the body" do
-  #     expect(mail.body.encoded).to match("Hi")
-  #   end
-  # end
-
-end
+# require "rails_helper"
+# include EmailSpec::Helpers
+# include EmailSpec::Matchers
+# include Rails.application.routes.url_helpers
+#
+# # describe AccountMailer, type: :mailer do
+# #   describe "Signup Email" do
+# #     let!(:account) { create(:account) }
+# #     subject { @email }
+# #
+# #     it { is_expected.to deliver_to account.email }
+# #     it { is_expected.to have_body_text(/Hi, New user!/) }
+# #     it { is_expected.to have_body_text edit_account_activation_url(@account.activation_token, email: account.email) }
+# #     it { is_expected.to have_subject(/Account activation/) }
+# #
+# #   # it "should contain the user's message in the mail body" do
+# #   #   expect(@email).to have_body_text(/Jojo Binks/)
+# #   # end
+# #   #
+# #   # it "should contain a link to the confirmation link" do
+# #   #   expect(@email).to have_body_text(/#{confirm_account_url}/)
+# #   # end
+# #   #
+# #   # it "should have the correct subject" do
+# #   #   expect(@email).to have_subject(/Account confirmation/)
+# #   # end
+#
+# end
+#
+# end

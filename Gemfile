@@ -50,6 +50,7 @@ group :development, :test do
   gem 'factory_girl_rails', require: false
   gem 'shoulda-matchers', '~> 2.6.0'
   gem 'email_spec'
+  gem 'active_decorator'
 end
 
 group :development do
