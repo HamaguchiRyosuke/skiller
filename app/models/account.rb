@@ -1,5 +1,5 @@
 class Account < ApplicationRecord
-  attr_accessor :activation_token
+  attr_accessor :activation_token, :remember_token
   before_save :downcase_email
   before_create :create_activation_digest
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
@@ -12,12 +12,14 @@ class Account < ApplicationRecord
 
   class << self
 
+    # 渡された文字列のハッシュ値を返す
     def digest(string)
       cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST :
                                                     BCrypt::Engine.cost
       BCrypt::Password.create(string, cost: cost)
     end
 
+    # ランダムなトークンを返す
     def new_token
       SecureRandom.urlsafe_base64
     end
@@ -33,6 +35,16 @@ class Account < ApplicationRecord
     digest = send("#{attribute}_digest")
     return false if digest.nil?
     BCrypt::Password.new(digest).is_password?(token)
+  end
+
+  def remember
+    self.remember_token = Account.new_token
+    update_attribute(:remember_digest, Account.digest(remember_token))
+  end
+
+  # ユーザーのログイン情報を破棄する
+  def forget
+    update_attribute(:remember_digest, nil)
   end
 
   private
