@@ -29,8 +29,5 @@ describe Account, type: :model do
       let!(:account_confirm_pass) { account.password_confirmation = "a" * 5 }
       it { is_expected.to be_invalid }
     end
-
-
-    
   end
 end
