@@ -1,5 +1,5 @@
 class Account < ApplicationRecord
-  attr_accessor :activation_token, :remember_token
+  attr_accessor :activation_token, :remember_token, :reset_token
   before_save :downcase_email
   before_create :create_activation_digest
   # VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
@@ -26,6 +26,23 @@ class Account < ApplicationRecord
     end
   end
 
+<<<<<<< HEAD
+=======
+  # 有効化用のメールを送信する
+  def send_activation_email
+    UserMailer.account_activation(self).deliver_now
+  end
+
+  def create_reset_digest
+    self.reset_token = Account.new_token
+    update_columns(reset_digest: Account.digest(reset_token), reset_sent_at: Time.zone.now)
+  end
+
+  def send_password_reset_email
+   AccountMailer.password_reset(self).deliver_now
+  end
+
+>>>>>>> 09f6db0... Add a password-reset form
   # アカウントを有効にする
   def activate
     update_columns(activated: true, activated_at: Time.zone.now)
@@ -46,6 +63,10 @@ class Account < ApplicationRecord
   # ユーザーのログイン情報を破棄する
   def forget
     update_attribute(:remember_digest, nil)
+  end
+
+  def password_reset_expired?
+    reset_sent_at < 2.hours.ago
   end
 
   private

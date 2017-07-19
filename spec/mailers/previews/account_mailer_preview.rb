@@ -9,8 +9,11 @@ class AccountMailerPreview < ActionMailer::Preview
     AccountMailer.account_activation(account)
   end
 
-  # Preview this email at http://localhost:3000/rails/mailers/account_mailer/password_reset
+  # Preview this email at
+  # http://localhost:3000/rails/mailers/account_mailer/password_reset
   def password_reset
+    account = Account.first
+    account.reset_token = Account.new_token
     AccountMailer.password_reset(account)
   end
 
