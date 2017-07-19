@@ -42,11 +42,13 @@ RSpec.describe AccountsController, type: :controller do
   end
 
   describe 'DELETE #destroy' do
-    let!(:account_count) { Account.count }
-    before { delete :destroy, params: { id: account.id } }
-    context 'delete success' do
-      it { expect(Account.count).to_not eq account_count }
-      # it { expect { delete :destroy, params: { id: account.id } }.to change{ Account.count }.by(1) }
+    context 'when change account_count' do
+      let!(:account_count) { Account.count }
+      it { expect { delete :destroy, params: { id: account.id } }.to change{ Account.count }.by(-1) }
+    end
+
+    context 'when success delete' do
+      before { delete :destroy, params: { id: account.id } }
       it { expect(flash).to_not be_empty }
       it { is_expected.to redirect_to root_url }
     end
