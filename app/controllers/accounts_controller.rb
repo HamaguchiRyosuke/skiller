@@ -6,9 +6,9 @@ class AccountsController < ApplicationController
 
   def create
     @account = Account.new(account_params)
-    if @account.save
-      log_in @account
-      flash[:success] = "Welcome to the skiller!"
+    activation_decorator = ActivationAccountEmailDecorator.new(@account)
+    if activation_decorator.save
+      flash[:info] = "Please check your email to activate your account."
       redirect_to root_url
     else
       render 'new'
