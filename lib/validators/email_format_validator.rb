@@ -3,10 +3,14 @@ class EmailFormatValidator < ActiveModel::EachValidator
     record.errors.add attribute, 'must be email format.' unless kawaii_email_address(value).valid?
   end
 
+  private
+
   def kawaii_email_address(email)
-    KawaiiEmailAddress::Validator.new
+    KawaiiEmailAddress::Validator.new(email)
   end
 end
+
+
 
 # # accept `kawaii` local part with docomo or ezweb.
 # KawaiiEmailAddress::Validator.new('....-_-....@docomo.ne.jp').valid? # => true
