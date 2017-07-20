@@ -1,6 +1,3 @@
-%h1= link_to "Skiller", root_url
--# - if logged_in?
-= link_to "ログアウトする", logout_path, method: "delete"
--# - else
-= link_to "新規登録する", signup_path
-= link_to "ログインする", login_path
+.center.jumbotron
+  %h1 Welcome to the Skiller
+  = link_to "Sign up now!", signup_path, class: "btn btn-lg btn-primary"

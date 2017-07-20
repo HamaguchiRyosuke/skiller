@@ -1,14 +1,13 @@
 class Account < ApplicationRecord
-  belongs_to :user, dependent: :destroy
+  has_one :user, dependent: :destroy
   attr_accessor :activation_token, :remember_token, :reset_token
   before_save :downcase_email
   before_create :create_activation_digest
   # VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   validates :email, presence: true,
                     uniqueness: { case_sensitive: false },
-                    length: { maximum: 255 },
-                    email_format: true
-                    # format: { with: VALID_EMAIL_REGEX }
+                    length: { maximum: 255 }
+                    # email_format: true
   has_secure_password
   validates :password, presence: true, length: { minimum: 6 }, allow_nil: true
 
@@ -25,11 +24,6 @@ class Account < ApplicationRecord
     def new_token
       SecureRandom.urlsafe_base64
     end
-  end
-
-  # 有効化用のメールを送信する
-  def send_activation_email
-    UserMailer.account_activation(self).deliver_now
   end
 
   def create_reset_digest
@@ -65,6 +59,10 @@ class Account < ApplicationRecord
 
   def password_reset_expired?
     reset_sent_at < 2.hours.ago
+  end
+
+  def deactivated?
+    !activated?
   end
 
   private

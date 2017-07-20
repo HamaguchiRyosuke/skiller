@@ -1,9 +1,9 @@
 %h1 All Users
 
--# = will_paginate
--#
--# %ul.users
--#   - @users.each do |user|
--#     = render @users
--#
--# = will_paginate
+= will_paginate
+
+%ul.users
+  - @users.each do |user|
+    = render @users
+
+= will_paginate

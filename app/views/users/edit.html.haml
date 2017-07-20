@@ -1,1 +1,14 @@
 %h1 Edit Information
+
+.row
+  .col-md-6.col-md-offset-3
+    = form_for(:session, url: login_path) do |f|
+      = f.label :name, "名前"
+      = f.text_field :name, class: 'form-control'
+      = f.label :gender, "性別"
+      = f.text_field :gender, class: 'form-control'
+      = f.label :age, "年齢"
+      = f.text_field :age, class: 'form-control'
+      = f.label :other_information, "自己紹介"
+      = f.text_field :other_information, class: 'form-control'
+      = f.submit "更新する", class: "btn btn-primary"

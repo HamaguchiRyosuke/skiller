@@ -44,8 +44,4 @@ module SessionsHelper
     session.delete(:account_id)
     @current_account = nil
   end
-
-  def deactivated?
-    !account.activated?
-  end
 end

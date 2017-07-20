@@ -6,7 +6,7 @@ class AccountActivationsController < ApplicationController
       update_attributes({activated: true, activated_at: Time.zone.now})
       log_in account
       flash[:success] = "Account activated!"
-      redirect_to account
+      redirect_to users_new_path
     else
       flash[:danger] = "Invalid activation link"
       redirect_to root_url
