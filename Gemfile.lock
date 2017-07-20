@@ -76,6 +76,7 @@ GEM
       mimemagic (>= 0.3.0)
     childprocess (0.7.1)
       ffi (~> 1.0, >= 1.0.11)
+    cliver (0.3.2)
     coderay (1.1.1)
     coffee-rails (4.2.2)
       coffee-script (>= 2.2.0)
@@ -292,6 +293,10 @@ GEM
       mini_portile2 (~> 2.2.0)
     parser (2.4.0.0)
       ast (~> 2.2)
+    poltergeist (1.15.0)
+      capybara (~> 2.1)
+      cliver (~> 0.3.1)
+      websocket-driver (>= 0.2.0)
     powerpack (0.1.1)
     pry (0.10.4)
       coderay (~> 1.1.0)
@@ -433,7 +438,7 @@ DEPENDENCIES
   bootstrap-sass (= 3.3.6)
   bootstrap-will_paginate (= 0.0.10)
   byebug
-  capybara (~> 2.13)
+  capybara
   carrierwave (= 0.11.2)
   coffee-rails (~> 4.2)
   email_spec
@@ -450,6 +455,7 @@ DEPENDENCIES
   kawaii_email_address
   listen (>= 3.0.5, < 3.2)
   mini_magick (= 4.5.1)
+  poltergeist
   pry-rails
   puma (~> 3.7)
   rails (~> 5.1.1)

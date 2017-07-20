@@ -1,4 +1,5 @@
 class Account < ApplicationRecord
+  belongs_to :user, dependent: :destroy
   attr_accessor :activation_token, :remember_token, :reset_token
   before_save :downcase_email
   before_create :create_activation_digest
