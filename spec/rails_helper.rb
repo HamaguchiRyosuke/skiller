@@ -40,10 +40,25 @@ RSpec.configure do |config|
   # examples within a transaction, remove the following line or assign false
   # instead of true.
   config.use_transactional_fixtures = true
-  module UserHelper
+  module AccountHelper
     module RequestSpec
       def is_logged_in?
-        !session[:user_id].nil?
+        !session[:account_id].nil?
+      end
+
+      def log_in_as(account, password: 'password', remember_me: '1')
+      return unless account
+      post login_path, params: { session: { email: account.email,
+                                            password: password,
+                                            remember_me: remember_me } }
+      end
+    end
+
+    module ControllerSpec
+    # テストユーザーとしてログインする
+      def log_in_as(account)
+        return unless account
+        session[:account_id] = account.id
       end
     end
   end

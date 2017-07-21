@@ -7,6 +7,7 @@ class SessionsController < ApplicationController
     if account && account.authenticate(params[:session][:password])
       if account.activated?
         log_in account
+        params[:session][:remember_me] == '1' ? remember(account) : forget(account)
         redirect_to root_url
       else
         message  = "Account not activated. "

@@ -15,7 +15,7 @@ RSpec.describe SessionsController, type: :controller do
     let!(:login_pass) { account.password }
     before { post :create, params: { session: { email: login_email, password: login_pass } } }
 
-    context 'when login with correct information' do
+    context 'when login success' do
       it { is_expected.to redirect_to root_url }
       it { expect(session[:account_id]).to eq account.id }
     end
