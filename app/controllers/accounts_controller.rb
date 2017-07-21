@@ -26,4 +26,12 @@ class AccountsController < ApplicationController
   def account_params
     params.require(:account).permit(:email, :password, :password_confirmation)
   end
+
+  # beforeアクション
+
+  # 正しいユーザーかどうか確認
+  def correct_account
+    @account = Account.find(params[:id])
+    redirect_to(root_url) unless current_account?(@account)
+  end
 end

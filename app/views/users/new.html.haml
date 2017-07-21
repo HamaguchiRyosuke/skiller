@@ -2,7 +2,7 @@
 
 .row
   .col-md-6.col-md-offset-3
-    = form_for(:session, url: login_path) do |f|
+    = form_for(:user, url: users_path) do |f|
       = f.label :name, "名前"
       = f.text_field :name, class: 'form-control'
       = f.label :gender, "性別"

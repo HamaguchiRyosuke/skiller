@@ -1,8 +1,16 @@
 %body
   %header.navbar.navbar-fixed-top.navbar-inverse
     .container
-      = link_to "Skiller", root_path, id: "logo"
+      = link_to "skiller", root_path, id: "logo"
       %nav
         %ul.nav.navbar-nav.navbar-right
           %li= link_to "Home", root_path
-          %li= link_to "Log in", login_path
+          - if logged_in?
+            %li= link_to "Users", users_path
+            %li= link_to "Profile", current_account
+            %li= link_to "Settings", edit_user_path(current_account)
+            %li.divider
+            %li
+              = link_to "Log out", logout_path, method: "delete"
+          - else
+            %li= link_to "Log in", login_path
