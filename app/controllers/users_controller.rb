@@ -1,8 +1,9 @@
 class UsersController < ApplicationController
-  before_action :logged_in_user, only: [:index, :show, :new, :create,  :edit, :update]
+  before_action :logged_in_account, only: [:index, :show, :new, :create,  :edit, :update]
+  before_action :correct_account,   only: [:edit, :update]
 
   def index
-    @users = User.all
+    @users = User.paginate(page: params[:page])
   end
 
   def new
@@ -10,7 +11,6 @@ class UsersController < ApplicationController
   end
 
   def create
-
     @user = current_account.build_user(user_params)
     if @user.save
       flash[:success] = "User created!"
@@ -38,7 +38,16 @@ class UsersController < ApplicationController
     end
   end
 
+  # beforeアクション
+
   def user_params
     params.require(:user).permit(:name, :gender, :age, :teach_skill, :learn_skill, :other_information)
+  end
+
+  # 正しいユーザーかどうかを確認
+  def correct_account
+    @account = Account.find(params[:id])
+    flash[:danger] = "Not your account"
+    redirect_to user_path(id: current_account.id) unless current_account?(@account)
   end
 end

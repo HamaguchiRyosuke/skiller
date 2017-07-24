@@ -1,4 +1,5 @@
 class AccountsController < ApplicationController
+  before_action :admin_account, only: :destroy
 
   def new
     @account = Account.new
@@ -29,9 +30,8 @@ class AccountsController < ApplicationController
 
   # beforeアクション
 
-  # 正しいユーザーかどうか確認
-  def correct_account
-    @account = Account.find(params[:id])
-    redirect_to(root_url) unless current_account?(@account)
+  # 管理者かどうか確認
+  def admin_account
+    redirect_to(root_url) unless current_account.admin?
   end
 end

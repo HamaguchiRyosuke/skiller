@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170720004911) do
+ActiveRecord::Schema.define(version: 20170724021620) do
 
   create_table "accounts", force: :cascade do |t|
     t.string "email"
@@ -23,6 +23,7 @@ ActiveRecord::Schema.define(version: 20170720004911) do
     t.string "remember_digest"
     t.string "reset_digest"
     t.datetime "reset_sent_at"
+    t.boolean "admin", default: false
     t.index ["email"], name: "index_accounts_on_email", unique: true
   end
 
