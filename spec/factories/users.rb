@@ -6,7 +6,6 @@ FactoryGirl.define do
     teach_skill "Ruby"
     learn_skill "Python"
     other_information "Hi, I want to learn Python"
-    # admin true
   end
 
   factory :other_user, parent: :user do
