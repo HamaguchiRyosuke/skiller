@@ -3,19 +3,24 @@
 .row
   %aside.col-md-4
     %section
-      %li= @user.name
-      %li= @user.gender
       %p
-        = "▼年齢"
+        = "▼名前："
+        = @user.name
+      %p
+        = "▼性別："
+        = @user.gender
+      %p
+        = "▼年齢："
         = @user.age
       %p
-        = "▼教えられるスキル"
-        = @user.teach_skill
-      %p
-        = "▼学びたいスキル"
-        = @user.learn_skill
-      %p
-        = "▼自己紹介"
+        = "▼自己紹介："
         = @user.other_information
+      %p
+        = "▼教えられるスキル："
+        - @user.skills.each do |skill|
+          = skill.skill_title
+      -# %p
+      -#   = "▼学びたいスキル"
+      -#   = @user.learn_skill
 
 =link_to "プロフィールを編集する", edit_user_path

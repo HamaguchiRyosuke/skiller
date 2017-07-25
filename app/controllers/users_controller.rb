@@ -26,6 +26,7 @@ class UsersController < ApplicationController
 
   def edit
     @user = User.find(params[:id])
+    # @user.skills.create
   end
 
   def update
@@ -41,13 +42,20 @@ class UsersController < ApplicationController
   # beforeアクション
 
   def user_params
-    params.require(:user).permit(:name, :gender, :age, :teach_skill, :learn_skill, :other_information)
+    params.require(:user).permit( :name,
+                                  :gender,
+                                  :age,
+                                  :other_information,
+                                  :skill_ids => []
+                                  # skills_attributes: [:id, :skill_title]
+                                  )
   end
+  # addresses_attributes: [:id, :zipcode, :city, :street, :tel, :_destroy]
 
   # 正しいユーザーかどうかを確認
   def correct_account
     @account = Account.find(params[:id])
-    flash[:danger] = "Not your account"
+    flash.now[:danger] = "Not your account" unless current_account?(@account)
     redirect_to user_path(id: current_account.id) unless current_account?(@account)
   end
 end

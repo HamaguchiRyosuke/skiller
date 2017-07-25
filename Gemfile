@@ -43,7 +43,6 @@ group :development, :test do
   gem 'pry-rails'
   gem 'hirb'
   gem 'hirb-unicode'
-  gem 'better_errors'
   gem 'binding_of_caller'
   gem 'rspec-rails'
   gem 'factory_girl_rails', require: false
@@ -71,6 +70,7 @@ end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
+gem 'jquery-turbolinks'
 gem 'bootstrap-sass', '3.3.6'
 gem 'bcrypt', '3.1.11'
 gem 'will_paginate', '3.1.0'

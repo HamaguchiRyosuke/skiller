@@ -1,7 +1,10 @@
 class User < ApplicationRecord
   belongs_to :account
+  has_many :teach_skills, dependent: :destroy
   has_many :skills, through: :teach_skills
-  belongs_to :teach_skills
+  accepts_nested_attributes_for :skills, allow_destroy: true
+
+
   validates :account_id, presence: true
   validates :name, presence: true, length: { maximum: 30 }
   validates :gender, presence: true, length: { maximum: 10 }
