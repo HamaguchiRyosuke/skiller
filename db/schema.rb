@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170725004058) do
+ActiveRecord::Schema.define(version: 20170726001543) do
 
   create_table "accounts", force: :cascade do |t|
     t.string "email"
@@ -25,6 +25,15 @@ ActiveRecord::Schema.define(version: 20170725004058) do
     t.datetime "reset_sent_at"
     t.boolean "admin", default: false
     t.index ["email"], name: "index_accounts_on_email", unique: true
+  end
+
+  create_table "learn_skills", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "skill_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["skill_id"], name: "index_learn_skills_on_skill_id"
+    t.index ["user_id"], name: "index_learn_skills_on_user_id"
   end
 
   create_table "skills", force: :cascade do |t|

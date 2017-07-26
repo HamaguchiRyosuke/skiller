@@ -46,8 +46,9 @@ class UsersController < ApplicationController
                                   :gender,
                                   :age,
                                   :other_information,
-                                  :skill_ids => []
-                                  # skills_attributes: [:id, :skill_title]
+                                  :skill_ids => [],
+                                  :teach_skill_ids => [],
+                                  :learn_skill_ids => []
                                   )
   end
   # addresses_attributes: [:id, :zipcode, :city, :street, :tel, :_destroy]

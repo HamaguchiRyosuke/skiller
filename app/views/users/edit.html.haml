@@ -11,7 +11,10 @@
       = f.text_field :age, class: 'form-control'
       = f.label :other_information, "自己紹介"
       = f.text_area :other_information, class: 'form-control textarea'
-      -# = render 'form'
+      = f.label :teach_skill, "教えられるスキル"
+      = f.collection_check_boxes(:skill_ids, Skill.all, :id, :skill_title) do |b|
+        = b.label { b.check_box + b.text }
+      = f.label :learn_skill, "学びたいスキル"
       = f.collection_check_boxes(:skill_ids, Skill.all, :id, :skill_title) do |b|
         = b.label { b.check_box + b.text }
       = f.submit "更新する", class: "btn btn-primary"
