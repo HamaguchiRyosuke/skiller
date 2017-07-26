@@ -11,19 +11,14 @@
       = f.text_field :age, class: 'form-control'
       = f.label :other_information, "自己紹介"
       = f.text_area :other_information, class: 'form-control textarea'
-      .skill-tags-field
-        = f.label :skill_title, "スキル"
-        %ul#skill-tags
-        = hidden_field_tag :skill_hidden, @skill_list
-
-      -# = fields_for :teach_skills do |b|
-      -#   = b.label :teach_skill, "教えられるスキル"
-      -#   = b.collection_check_boxes(:teach_skill_ids, Skill.all, :id, :skill_title) do |c|
-      -#     = c.label { c.check_box + c.text }
-      -# = fields_for :learn_skills do |b|
-      -#   = b.label :learn_skill, "学びたいスキル"
-      -#   = b.collection_check_boxes(:learn_skill_ids, Skill.all, :id, :skill_title) do |c|
-      -#     = c.label { c.check_box + c.text }
+      = fields_for :teach_skills do |b|
+        = b.label :teach_skill, "教えられるスキル"
+        = b.collection_check_boxes(:teach_skill_ids, Skill.all, :id, :skill_title) do |c|
+          = c.label { c.check_box + c.text }
+      = fields_for :learn_skills do |b|
+        = b.label :learn_skill, "学びたいスキル"
+        = b.collection_check_boxes(:learn_skill_ids, Skill.all, :id, :skill_title) do |c|
+          = c.label { c.check_box + c.text }
 
       = f.submit "更新する", class: "btn btn-primary"
 

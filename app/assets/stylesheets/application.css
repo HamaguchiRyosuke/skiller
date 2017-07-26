@@ -12,9 +12,3 @@
  *
  *= require_tree .
  *= require_self
-
- *= require jquery-ui
- /*
-  *= require jquery.tagit
-  *= require tagit.ui-zendesk
- */
