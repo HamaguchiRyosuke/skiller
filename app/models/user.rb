@@ -4,8 +4,8 @@ class User < ApplicationRecord
   has_many :learn_skills, dependent: :destroy
   has_many :skills, through: :teach_skills
   has_many :skills, through: :learn_skills
-  accepts_nested_attributes_for :skills, allow_destroy: true
-  accepts_nested_attributes_for :skills, allow_destroy: true
+  accepts_nested_attributes_for :teach_skills, allow_destroy: true
+  accepts_nested_attributes_for :learn_skills, allow_destroy: true
 
 
   validates :account_id, presence: true

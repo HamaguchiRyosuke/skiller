@@ -32,8 +32,23 @@ class UsersController < ApplicationController
   def update
     @user = User.find(params[:id])
     if @user.update_attributes(user_params)
-      flash[:success] = "Profile Updated"
-      redirect_to @user
+      # あとでリファクタリング
+      teach_skill_params[:teach_skill_ids].shift
+      teach_skill_params[:teach_skill_ids].each do |skill_id|
+        @user.teach_skills.build(skill_id: skill_id)
+      end
+      # あとでリファクタリング
+      learn_skill_params[:learn_skill_ids].shift
+      learn_skill_params[:learn_skill_ids].each do |skill_id|
+        @user.learn_skills.build(skill_id: skill_id)
+      end
+
+      if @user.save
+        flash[:success] = "Profile Updated"
+        redirect_to @user
+      else
+        render :edit
+      end
     else
       render :edit
     end
@@ -45,12 +60,18 @@ class UsersController < ApplicationController
     params.require(:user).permit( :name,
                                   :gender,
                                   :age,
-                                  :other_information,
-                                  :skill_ids => [],
-                                  :teach_skill_ids => [],
-                                  :learn_skill_ids => []
+                                  :other_information
                                   )
   end
+
+  def teach_skill_params
+    params.require(:teach_skills).permit(:teach_skill_ids => [])
+  end
+
+  def learn_skill_params
+    params.require(:learn_skills).permit(:learn_skill_ids => [])
+  end
+
   # addresses_attributes: [:id, :zipcode, :city, :street, :tel, :_destroy]
 
   # 正しいユーザーかどうかを確認
