@@ -26,33 +26,34 @@ class UsersController < ApplicationController
 
   def edit
     @user = User.find(params[:id])
-    # @user.skills.create
+    @skill_list = @user.skills.pluck(:skill_title).join(",")
   end
 
   def update
     @user = User.find(params[:id])
+    skill_list = params[:skill_list].split(",")
     if @user.update_attributes(user_params)
-      # あとでリファクタリング
-      teach_skill_params[:teach_skill_ids].shift
-      teach_skill_params[:teach_skill_ids].each do |skill_id|
-        @user.teach_skills.build(skill_id: skill_id)
-      end
-      # あとでリファクタリング
-      learn_skill_params[:learn_skill_ids].shift
-      learn_skill_params[:learn_skill_ids].each do |skill_id|
-        @user.learn_skills.build(skill_id: skill_id)
-      end
-
-      if @user.save
-        flash[:success] = "Profile Updated"
-        redirect_to @user
-      else
-        render :edit
-      end
+      @user.save_skills(skill_list)
+      flash[:success] = "Profile Updated"
+      redirect_to @user
     else
       render :edit
     end
+
+
+    # if @user.update_attributes(user_params)
+    #   # あとでリファクタリング
+    #   teach_skill_params[:teach_skill_ids].shift
+    #   teach_skill_params[:teach_skill_ids].each do |skill_id|
+    #     @user.teach_skills.build(skill_id: skill_id)
+    #   end
+    #   # あとでリファクタリング
+    #   learn_skill_params[:learn_skill_ids].shift
+    #   learn_skill_params[:learn_skill_ids].each do |skill_id|
+    #     @user.learn_skills.build(skill_id: skill_id)
+    #   end
   end
+
 
   # beforeアクション
 

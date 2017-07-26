@@ -11,16 +11,40 @@
       = f.text_field :age, class: 'form-control'
       = f.label :other_information, "自己紹介"
       = f.text_area :other_information, class: 'form-control textarea'
-      = fields_for :teach_skills do |b|
-        = b.label :teach_skill, "教えられるスキル"
-        = b.collection_check_boxes(:teach_skill_ids, Skill.all, :id, :skill_title) do |c|
-          = c.label { c.check_box + c.text }
-      = fields_for :learn_skills do |b|
-        = b.label :learn_skill, "学びたいスキル"
-        = b.collection_check_boxes(:learn_skill_ids, Skill.all, :id, :skill_title) do |c|
-          = c.label { c.check_box + c.text }
+      .skill-tags-field
+        = f.label :skill_title, "スキル"
+        %ul#skill-tags
+        = hidden_field_tag :skill_hidden, @skill_list
+
+      -# = fields_for :teach_skills do |b|
+      -#   = b.label :teach_skill, "教えられるスキル"
+      -#   = b.collection_check_boxes(:teach_skill_ids, Skill.all, :id, :skill_title) do |c|
+      -#     = c.label { c.check_box + c.text }
+      -# = fields_for :learn_skills do |b|
+      -#   = b.label :learn_skill, "学びたいスキル"
+      -#   = b.collection_check_boxes(:learn_skill_ids, Skill.all, :id, :skill_title) do |c|
+      -#     = c.label { c.check_box + c.text }
+
       = f.submit "更新する", class: "btn btn-primary"
 
 -# <%= f.fields_for :books do |b| %>
 -#         <%= b.text_field :title %>
 -#         <%= b.text_field :published_at %>
+-# <h2>記事の新規作成</h2>
+-# <%= form_for(@article) do |f| %>
+-#   <div class="field">
+-#     <%= f.label :title %>
+-#     <%= f.text_field :title %>
+-#
+-#     <div class="article-tags-field">
+-#       <%= f.label "カテゴリー" %>
+-#       <ul id="article-tags">
+-#       </ul>
+-#     </div>
+-#
+-#     <%= f.label :body %>
+-#     <%= f.text_field :body %>
+-#
+-#     <%= f.submit "記事作成" %>
+-#   </div>
+-# <% end %>
