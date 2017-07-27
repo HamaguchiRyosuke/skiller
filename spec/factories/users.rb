@@ -3,9 +3,12 @@ FactoryGirl.define do
     name "Example User"
     gender "male"
     age 22
-    teach_skill "Ruby"
-    learn_skill "Python"
+    # teach_skill "Ruby"
+    # learn_skill "Python"
     other_information "Hi, I want to learn Python"
+    after(:create) do |user|
+      user.skills << create(:skill)
+    end
   end
 
   factory :other_user, parent: :user do

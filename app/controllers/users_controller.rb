@@ -49,42 +49,8 @@ class UsersController < ApplicationController
     @teach_skills.delete_all if @teach_skills
     @learn_skills.delete_all if @learn_skills
     @user.update_attributes(user_params)
-    binding.pry
-    # if @user.update_attributes(user_params)
-      # あとでリファクタリング
-      # teach_skill_params[:ids].shift
-      # teach_skill_params[:ids].each do |skill_id|
-      #   @teach_skills = @user.teach_skills.find_or_create_by(skill_id: skill_id)
-      # end
-
-      # チェックボックスでチェックされていない項目のskill_idを削除して
-      # プロフィール画面で表示しないようにしたい
-      # (1..Skill.count).each do |skill_id|
-      #   (1..teach_skill_params[:ids].size).each do |num|
-      #     if @teach_skills[num] != skill_id
-      #       @user.teach_skills.find_by(skill_id: skill_id).destroy
-      #     end
-      #   end
-      # end
-
-      # あとでリファクタリング
-      # learn_skill_params[:ids].shift
-      # learn_skill_params[:ids].each do |skill_id|
-      #   @learn_skills = @user.learn_skills.find_or_create_by(skill_id: skill_id)
-      # end
-
-      # チェックボックスでチェックされていない項目のskill_idを削除して
-      # プロフィール画面で表示しないようにしたい
-      # (1..Skill.count).each do |skill_id|
-      #   (1..learn_skill_params[:ids].size).each do |num|
-      #     if @learn_skills[num] != skill_id
-      #       @user.learn_skills.find_by(skill_id: skill_id).destroy
-      #     end
-      #   end
-      # end
-
-      flash[:success] = "Profile Updated"
-      redirect_to @user
+    flash[:success] = "Profile Updated"
+    redirect_to @user
     # else
     #   render :edit
     # end
