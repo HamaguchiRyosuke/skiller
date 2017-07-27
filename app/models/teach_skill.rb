@@ -1,4 +1,4 @@
 class TeachSkill < ApplicationRecord
-  belongs_to :user
-  belongs_to :skill
+  belongs_to :user, optional: true
+  belongs_to :skill, optional: true
 end

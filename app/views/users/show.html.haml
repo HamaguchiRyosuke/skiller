@@ -15,13 +15,12 @@
       %p
         = "▼自己紹介："
         = @user.other_information
-      %p
-        = "▼教えられるスキル："
-        - @user.teach_skills.each do |teach_skill|
-          = teach_skill.skill_id
+      %p ▼教えられるスキル：
+      - @teach_skills.each do | skill |
+        %p= skill.skill_title
       %p
         = "▼学びたいスキル："
-        - @user.learn_skills.each do |learn_skill|
-          = learn_skill.skill_id
+        - @learn_skills.each do |skill|
+          %p= skill.skill_title
 
 =link_to "プロフィールを編集する", edit_user_path
