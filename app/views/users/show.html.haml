@@ -15,9 +15,10 @@
       %p
         = "▼自己紹介："
         = @user.other_information
-      %p ▼教えられるスキル：
-      - @teach_skills.each do | skill |
-        %p= skill.skill_title
+      %p
+        = "▼教えられるスキル："
+        - @teach_skills.each do | skill |
+          %p= skill.skill_title
       %p
         = "▼学びたいスキル："
         - @learn_skills.each do |skill|
