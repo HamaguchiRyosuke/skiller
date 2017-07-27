@@ -8,9 +8,8 @@ class PasswordResetsController < ApplicationController
 
   def create
     @account = Account.find_by(email: params[:password_reset][:email].downcase)
-    if @account
-      @account.create_reset_digest
-      @account.send_password_reset_email
+    password_reset_decorator = PasswordResetEmailDecorator.new(@account)
+    if password_reset_decorator.reset_password
       flash[:info] = "Email sent with password reset instructions"
       redirect_to root_url
     else
@@ -28,9 +27,9 @@ class PasswordResetsController < ApplicationController
       render 'edit'
     elsif @account.update_attributes(account_params)
       log_in @account
-      @user.update_attribute(:reset_digest, nil)
+      @account.update_attribute(:reset_digest, nil)
       flash[:success] = "Password has been reset."
-      redirect_to @account
+      redirect_to root_url
     else
       render 'edit'
     end
