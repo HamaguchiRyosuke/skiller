@@ -5,6 +5,7 @@ class AccountActivationsController < ApplicationController
     if account && account.deactivated? && account.authenticated?(:activation, params[:id])
       account.activate
       log_in account
+
       flash[:success] = "Account activated!"
       redirect_to new_user_path
     else
