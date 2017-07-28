@@ -1,4 +1,5 @@
 class AccountsController < ApplicationController
+  before_action :admin_account, only: :destroy
 
   def new
     @account = Account.new
@@ -25,5 +26,12 @@ class AccountsController < ApplicationController
   private
   def account_params
     params.require(:account).permit(:email, :password, :password_confirmation)
+  end
+
+  # beforeアクション
+
+  # 管理者かどうか確認
+  def admin_account
+    redirect_to(root_url) unless current_account.admin?
   end
 end

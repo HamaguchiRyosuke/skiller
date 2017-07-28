@@ -8,6 +8,10 @@ require 'rspec/rails'
 require 'factory_girl_rails'
 require "email_spec"
 require "email_spec/rspec"
+require 'capybara/rspec'
+require 'capybara/poltergeist'
+Capybara.javascript_driver = :poltergeist
+
 # require 'email_spec' # add this line if you use spork
 # require 'email_spec/rspec'
 # Add additional requires below this line. Rails is not loaded until this point!
@@ -31,8 +35,34 @@ require "email_spec/rspec"
 # If you are not using ActiveRecord, you can remove this line.
 ActiveRecord::Migration.maintain_test_schema!
 
+module SessionHelper
+  module RequestSpec
+    # テストユーザーとしてログインする
+    def log_in_as(account, password: 'password', remember_me: '1')
+      return unless account
+      post login_path, params: { session: { email: account.email,
+                                            password: password,
+                                            remember_me: remember_me } }
+    end
+
+    def is_logged_in?
+      !session[:account_id].nil?
+    end
+  end
+
+  module ControllerSpec
+    # テストユーザーとしてログインする
+    def log_in_as(account)
+      return unless account
+      session[:account_id] = account.id
+    end
+  end
+end
+
 RSpec.configure do |config|
   config.include FactoryGirl::Syntax::Methods
+  config.include SessionHelper::RequestSpec, type: :request
+  config.include SessionHelper::ControllerSpec, type: :controller
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
 
@@ -40,29 +70,6 @@ RSpec.configure do |config|
   # examples within a transaction, remove the following line or assign false
   # instead of true.
   config.use_transactional_fixtures = true
-  module AccountHelper
-    module RequestSpec
-      def is_logged_in?
-        !session[:account_id].nil?
-      end
-
-      def log_in_as(account, password: 'password', remember_me: '1')
-      return unless account
-      post login_path, params: { session: { email: account.email,
-                                            password: password,
-                                            remember_me: remember_me } }
-      end
-    end
-
-    module ControllerSpec
-    # テストユーザーとしてログインする
-      def log_in_as(account)
-        return unless account
-        session[:account_id] = account.id
-      end
-    end
-  end
-
   # RSpec Rails can automatically mix in different behaviours to your tests
   # based on their file location, for example enabling you to call `get` and
   # `post` in specs under `spec/controllers`.

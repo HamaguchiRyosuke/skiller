@@ -1,0 +1,18 @@
+%h1 Edit Information
+
+.row
+  .col-md-6.col-md-offset-3
+    = form_for(:user, url: user_path, method: :patch) do |f|
+      = f.label :name, "名前"
+      = f.text_field :name, class: 'form-control'
+      = f.label :gender, "性別"
+      = f.text_field :gender, class: 'form-control'
+      = f.label :age, "年齢"
+      = f.text_field :age, class: 'form-control'
+      = f.label :teach_skill, "教えられるスキル"
+      = f.text_field :teach_skill, class: 'form-control'
+      = f.label :learn_skill, "学びたいスキル"
+      = f.text_field :learn_skill, class: 'form-control'
+      = f.label :other_information, "自己紹介"
+      = f.text_area :other_information, class: 'form-control textarea'
+      = f.submit "更新する", class: "btn btn-primary"

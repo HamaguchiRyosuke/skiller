@@ -1,0 +1,13 @@
+%h1 All Users
+
+= will_paginate
+
+%ul.users
+  - @users.each do |user|
+    %li= link_to user.name, user_path(user)
+
+    -# - if current_account.admin? && !current_account?(account)
+    -#   |
+    -#   = link_to "delete", account_path, method: :delete, data: { confirm: "You sure?" }
+
+= will_paginate

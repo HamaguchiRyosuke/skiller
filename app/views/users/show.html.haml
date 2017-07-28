@@ -1,0 +1,21 @@
+%h1 Your Profile
+
+.row
+  %aside.col-md-4
+    %section
+      %li= @user.name
+      %li= @user.gender
+      %p
+        = "▼年齢"
+        = @user.age
+      %p
+        = "▼教えられるスキル"
+        = @user.teach_skill
+      %p
+        = "▼学びたいスキル"
+        = @user.learn_skill
+      %p
+        = "▼自己紹介"
+        = @user.other_information
+
+=link_to "プロフィールを編集する", edit_user_path

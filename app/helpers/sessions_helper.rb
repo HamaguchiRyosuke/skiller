@@ -14,7 +14,7 @@ module SessionsHelper
     cookies.permanent[:remember_token] = account.remember_token
   end
 
-  # 記憶トークンcookieに対応するユーザーを返す
+  # 記憶トークンcookieに対応するアカウントを返す
   def current_account
     if (account_id = session[:account_id])
       @current_account ||= Account.find_by(id: account_id)
@@ -45,7 +45,14 @@ module SessionsHelper
     @current_account = nil
   end
 
-  def deactivated?
-    !account.activated?
+  # 記憶したURL (もしくはデフォルト値) にリダイレクト
+  def redirect_back_or(default)
+    redirect_to(session[:forwarding_url] || default)
+    session.delete(:forwarding_url)
+  end
+
+  # アクセスしようとしたURLを覚えておく
+  def store_location
+    session[:forwarding_url] = request.original_url if request.get?
   end
 end
