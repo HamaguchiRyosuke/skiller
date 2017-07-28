@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :account do
-    email { Faker::Internet.email }
+    email 'example@sample.com'
     password 'password'
     password_confirmation 'password'
     activated true

@@ -19,32 +19,5 @@
       = f.fields_for :learn_skills_attributes do |learn_skill|
         - Skill.all.each do |skill|
           = text_field_tag 'user[learn_skills_attributes][][skill_id]'
-        -# = teach_skill.collection_check_boxes(:skill_id, Skill.all, :id, :skill_title)
-      -# = fields_for :learn_skills do |b|
-      -#   = b.label :learn_skill, "学びたいスキル"
-      -#   = b.collection_check_boxes(:ids, Skill.all, :id, :skill_title) do |c|
-      -#     = c.label { c.check_box + c.text }
 
       = f.submit "更新する", class: "btn btn-primary"
-
--# <%= f.fields_for :books do |b| %>
--#         <%= b.text_field :title %>
--#         <%= b.text_field :published_at %>
--# <h2>記事の新規作成</h2>
--# <%= form_for(@article) do |f| %>
--#   <div class="field">
--#     <%= f.label :title %>
--#     <%= f.text_field :title %>
--#
--#     <div class="article-tags-field">
--#       <%= f.label "カテゴリー" %>
--#       <ul id="article-tags">
--#       </ul>
--#     </div>
--#
--#     <%= f.label :body %>
--#     <%= f.text_field :body %>
--#
--#     <%= f.submit "記事作成" %>
--#   </div>
--# <% end %>
