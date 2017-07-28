@@ -4,7 +4,7 @@ FactoryGirl.define do
     gender "male"
     age 22
     other_information "Hi, I want to learn Python"
-    
+
     after(:create) do |user|
       user.skills << create(:skill)
     end

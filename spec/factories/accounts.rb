@@ -6,17 +6,10 @@ FactoryGirl.define do
     activated true
     activated_at Time.zone.now
     admin true
-  end
 
-  factory :other_account, parent: :account do
-    other true
-    email "other@example.com"
-    admin false
-  end
-
-  factory :crowds_account, parent: :account do
-    crowds true
-    activated_at true
-    admin false
+    trait :other do
+      email { Faker::Internet.email }
+      admin false
+    end
   end
 end

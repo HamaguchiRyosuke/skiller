@@ -96,8 +96,8 @@ class UsersController < ApplicationController
 
   # 正しいユーザーかどうかを確認
   def correct_account
-    @account = Account.find(params[:id])
+    @account = Account.find(params{:id})
     flash.now[:danger] = "Not your account" unless current_account?(@account)
-    redirect_to user_path(id: current_account.id) unless current_account?(@account)
+    redirect_to user_path(id: current_account.user.id) unless current_account?(@account)
   end
 end

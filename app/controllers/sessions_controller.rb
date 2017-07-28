@@ -8,6 +8,7 @@ class SessionsController < ApplicationController
       if account.activated?
         log_in account
         params[:session][:remember_me] == '1' ? remember(account) : forget(account)
+        flash[:success] = "Login success!"
         redirect_to users_path
       else
         message  = "Account not activated. "
