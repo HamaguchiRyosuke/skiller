@@ -61,17 +61,16 @@ RSpec.describe UsersController, type: :controller do
       it { is_expected.to redirect_to login_url }
     end
 
-    # テストを通せない
-    # context 'when incorrect user action' do
-    #   before do
-    #     log_in_as(login_account)
-    #     get :edit, params: { id: user.id }
-    #   end
-    #   let!(:other_account) { create(:other_account) }
-    #   let!(:login_account) { other_account }
-    #   it { expect(flash).to_not be_empty }
-    #   it { is_expected.to redirect_to user_path(id: user.id) }
-    # end
+    context 'when incorrect user action' do
+      before do
+        log_in_as(login_account)
+        get :edit, params: { id: user.id }
+      end
+      let!(:other_account) { create(:account, :other_account) }
+      let!(:login_account) { other_account }
+      it { expect(flash).to_not be_empty }
+      it { is_expected.to redirect_to user_path(id: user.id) }
+    end
 
     # context 'when correct user action' do
     #   before do
@@ -92,9 +91,18 @@ RSpec.describe UsersController, type: :controller do
 
     context 'when not logged in user action' do
       let(:login_account) { nil }
+      before { patch :update, params: { id: user.id, user: { name: 'name', gender: 'male', age: 22, other_information: "Hello!" } } }
       it { expect(flash).to_not be_empty }
       it { is_expected.to redirect_to login_url }
     end
+
+    # context 'when incorrect user action' do
+    #   let(:login_account) { create(:account, :other_account) }
+    #   let(:other_user) { create(:other_user) }
+    #   before { patch :update, params: { id: other_user.id, user: { name: 'name', gender: 'male', age: 22, other_information: "Hello!" } } }
+    #   it { expect(flash).to_not be_empty }
+    #   it { is_expected.to render_template :edit }
+    # end
 
     # context 'when correct user action' do
     #   let(:other_account) { create(:other_account) }
@@ -103,13 +111,6 @@ RSpec.describe UsersController, type: :controller do
     #   it { is_expected.to redirect_to user_path(id: user.id) }
     # end
 
-    # テストを通せない
-    # context 'when incorrect user action' do
-    #   let(:other_account) { create(:other_account) }
-    #   let(:login_account) { other_account }
-    #   it { expect(flash).to be_empty }
-    #   it { is_expected.to render_template :edit }
-    # end
   end
 
 end

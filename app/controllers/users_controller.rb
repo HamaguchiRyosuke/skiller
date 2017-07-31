@@ -48,12 +48,12 @@ class UsersController < ApplicationController
     @learn_skills = @user.learn_skills
     @teach_skills.delete_all if @teach_skills
     @learn_skills.delete_all if @learn_skills
-    @user.update_attributes(user_params)
-    flash[:success] = "Profile Updated"
-    redirect_to @user
-    # else
-    #   render :edit
-    # end
+    if @user.update_attributes(user_params)
+      flash[:success] = "Profile Updated"
+      redirect_to @user
+    else
+      render :edit
+    end
   end
 
 
@@ -70,16 +70,9 @@ class UsersController < ApplicationController
                                   )
   end
 
-  # 正しいユーザーかどうかを確認
-  # def correct_account
-  #   @account = Account.find(params[:id])
-  #   flash.now[:danger] = "Not your account" unless current_account?(@account)
-  #   redirect_to user_path(id: current_account.user.id) unless current_account?(@account)
-  # end
-
   def correct_user
     @user = User.find(params[:id])
     flash.now[:danger] = "Not your account" unless @user == current_account.user
-    redirect_to user_path(id: current_account.user.id) unless @user == current_account.user
+    redirect_to user_path(id: @user.id) unless @user == current_account.user
   end
 end

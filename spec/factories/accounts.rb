@@ -7,7 +7,7 @@ FactoryGirl.define do
     activated_at Time.zone.now
     admin true
 
-    trait :other do
+    trait :other_account do
       email { Faker::Internet.email }
       admin false
     end

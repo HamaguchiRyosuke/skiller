@@ -49,6 +49,7 @@ group :development, :test do
   gem 'shoulda-matchers', '~> 2.6.0'
   gem 'active_decorator'
   gem 'email_spec'
+  gem 'simplecov', :require => false
 end
 
 group :development do
