@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :logged_in_account, only: [:index, :show, :new, :create,  :edit, :update]
-  before_action :correct_account,   only: [:edit, :update]
+  before_action :correct_user,      only: [:edit, :update]
 
   def index
     @users = User.paginate(page: params[:page])
@@ -71,9 +71,15 @@ class UsersController < ApplicationController
   end
 
   # 正しいユーザーかどうかを確認
-  def correct_account
-    @account = Account.find(params[:id])
-    flash.now[:danger] = "Not your account" unless current_account?(@account)
-    redirect_to user_path(id: current_account.user.id) unless current_account?(@account)
+  # def correct_account
+  #   @account = Account.find(params[:id])
+  #   flash.now[:danger] = "Not your account" unless current_account?(@account)
+  #   redirect_to user_path(id: current_account.user.id) unless current_account?(@account)
+  # end
+
+  def correct_user
+    @user = User.find(params[:id])
+    flash.now[:danger] = "Not your account" unless @user == current_account.user
+    redirect_to user_path(id: current_account.user.id) unless @user == current_account.user
   end
 end
