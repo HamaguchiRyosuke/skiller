@@ -56,25 +56,11 @@ class UsersController < ApplicationController
     # end
   end
 
-  # def destroy
-  #   @teach_skill = @user.teach_skills.find_or_create_by(skill_id: skill_id)
-  #   @learn_skill = @user.learn_skills.find_or_create_by(skill_id: skill_id)
-  #   learn_skill_params[:ids].each do |skill_id|
-  #     @learn_skill = @user.learn_skills.find_or_create_by(skill_id: skill_id)
-  #   end
-  #
-  # end
 
 
   # beforeアクション
 
   def user_params
-    # params.require(:user).permit( :name,
-    #                               :gender,
-    #                               :age,
-    #                               :other_information
-    #                               )
-
     params.require(:user).permit( :name,
                                   :gender,
                                   :age,
@@ -84,19 +70,9 @@ class UsersController < ApplicationController
                                   )
   end
 
-  def teach_skill_params
-    params.require(:teach_skills).permit(:ids => [], :skill_ids => [])
-  end
-
-  def learn_skill_params
-    params.require(:learn_skills).permit(:ids => [], :skill_ids => [])
-  end
-
-  # addresses_attributes: [:id, :zipcode, :city, :street, :tel, :_destroy]
-
   # 正しいユーザーかどうかを確認
   def correct_account
-    @account = Account.find(params{:id})
+    @account = Account.find_by(params[:id])
     flash.now[:danger] = "Not your account" unless current_account?(@account)
     redirect_to user_path(id: current_account.user.id) unless current_account?(@account)
   end
