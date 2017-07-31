@@ -1,9 +1,18 @@
 module UsersHelper
-  # 渡されたユーザーのGravatar画像を返す
-  # def gravatar_for(user, options = { size: 80 })
-  #   gravatar_id = Digest::MD5::hexdigest(user.email.downcase)
-  #   size = options[:size]
-  #   gravatar_url = "https://secure.gravatar.com/avatar/#{gravatar_id}?s=#{size}"
-  #   image_tag(gravatar_url, alt: user.name, class: "gravatar")
-  # end
+  def current_account?(account)
+    account == current_account
+  end
+
+  # 記憶トークンcookieに対応するアカウントを返す
+  def current_account
+    if (account_id = session[:account_id])
+      @current_account ||= Account.find_by(id: account_id)
+    elsif (account_id = cookies.signed[:account_id])
+      account = Account.find_by(id: account_id)
+      if account && account.authenticated?(cookies[:remember_token])
+        log_in account
+        @current_account = account
+      end
+    end
+  end
 end
